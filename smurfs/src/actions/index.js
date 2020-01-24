@@ -1,27 +1,55 @@
 import axios from 'axios';
 
-export const FETCH_START = 'FETCH_START';
-export const FETCH_SUCCESS = 'FETCH_SUCCESS';
-export const FETCH_FAILURE = 'FETCH_FAILURE';
+export const API_START = 'API_START';
+export const API_SUCCESS = 'API_SUCCESS';
+export const API_FAILURE = 'API_FAILURE';
 export const ADD_SMURF = 'ADD_SMURF';
 export const REMOVE_SMURF = 'REMOVE_SMURF';
 
 export const getSmurfs = () => dispatch => {
-    dispatch({type: FETCH_START});
+    dispatch({type: API_START});
     axios.get('http://localhost:3333/smurfs')
         .then((res) => {
             console.log(res);
-            dispatch({type: FETCH_SUCCESS, payload: res.data});
+            dispatch({type: API_SUCCESS, payload: res.data});
         })
         .catch((err) => {
-            dispatch({type: FETCH_FAILURE, payload: `${err.response.status} ${err.response.data}`});
+            dispatch({type: API_FAILURE, payload: `${err.response.status} ${err.response.data}`});
         })
 };
 
-export const addSmurf = (newSmurf) => {
-    return { type: ADD_SMURF, payload: newSmurf };
+export const addSmurf = (newSmurf) => dispatch => {
+    dispatch({type: API_START});
+    axios.post('http://localhost:3333/smurfs', newSmurf)
+        .then((res) => {
+            console.log(res);
+            dispatch({type: API_SUCCESS, payload: res.data});
+        })
+        .catch((err) => {
+            dispatch({type: API_FAILURE, payload: `${err.response.status} ${err.response.data}`});
+        })
 };
 
-export const removeSmurf = (smurfID) => {
-    return { type: REMOVE_SMURF, payload: smurfID };
+export const updateSmurf = (updatedSmurf) => dispatch => {
+    dispatch({type: API_START});
+    axios.put('http://localhost:3333/smurfs/'+updatedSmurf.id, updatedSmurf)
+        .then((res) => {
+            console.log(res);
+            dispatch({type: API_SUCCESS, payload: res.data});
+        })
+        .catch((err) => {
+            dispatch({type: API_FAILURE, payload: `${err.response.status} ${err.response.data}`});
+        })
+};
+
+export const removeSmurf = (smurfID) => dispatch => {
+    dispatch({type: API_START});
+    axios.delete('http://localhost:3333/smurfs/'+smurfID)
+        .then((res) => {
+            console.log(res);
+            dispatch({type: API_SUCCESS, payload: res.data});
+        })
+        .catch((err) => {
+            dispatch({type: API_FAILURE, payload: `${err.response.status} ${err.response.data}`});
+        })
 };
