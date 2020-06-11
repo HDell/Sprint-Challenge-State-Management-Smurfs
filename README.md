@@ -23,10 +23,26 @@ In this challenge, you are to build a Smurfs village utilizing context or Redux 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] What problem does the context API help solve?
+
+Context API helps solve the state management problem at scale by making it possible for any component to access (consume) state data that was initialized (and provided) elsewhere.
+
 - [ ] In your own words, describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
+
+Actions are a way to route (dispatch) UI events to reducers.
+Reducers respond to actions and handle them by updating the store.
+The store is the data storage (like a database) that maintains the state of data that is used across the application. It is known as a single source of truth because it lives underneath the hood and is accessed by any/every component. 
+
 - [ ] What is the difference between Application state and Component state? When would be a good time to use one over the other?
+
+Application state is the state that data storage managers like Redux and the Context API maintain. Component state is what would live on an individual component when using something like the useState hook.
+
 - [ ] Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
+
+Redux thunk is a middleware that makes it possible to reroute, stop, or modify actions asynchronously before they are sent to the reducers.
+
 - [ ] What is your favorite state management system you've learned and this sprint? Please explain why!
+
+I don't have a strong favorite since I've only been using them for a week. But I'll go with redux because I recognize how valuable it'll be when working on large-scale applications.
 
 ## Project Set Up
 
